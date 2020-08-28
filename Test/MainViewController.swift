@@ -38,6 +38,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.tableFooterView = UIView() //trick to blank screen in table view
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        
+        fetchTopRecord()
+    }
+    
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -68,21 +75,49 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 if let theAppDelete = UIApplication.shared.delegate as? AppDelegate
                 {
                     let managedContext = theAppDelete.persistentContainer.viewContext
-                    let record = NSEntityDescription.entity(forEntityName: "record", in: managedContext)
-                    record?.setValue(res, forKey: "data")
-                    record?.setValue(Date(), forKey: "timestamp")
-                    do
+                    if let desc = NSEntityDescription.entity(forEntityName: "Record", in: managedContext)
                     {
-                        try managedContext.save()
-                        print("data saved.")
-                    }catch let error
-                    {
-                        print("error: \(error)")
+                        let record = NSManagedObject(entity: desc, insertInto: managedContext)
+                        do
+                        {
+                            let data = try NSKeyedArchiver.archivedData(withRootObject: json, requiringSecureCoding: true)
+                            record.setValue(data, forKey: "data")
+                            record.setValue(Date(), forKey: "timestamp")
+                            try managedContext.save()
+                            print("data saved.")
+                        }catch let error
+                        {
+                            print("error: \(error)")
+                        }
                     }
                 }
                 self.tableView.reloadData()
                 self.indicator.stopAnimating()
             }
+        }
+    }
+    
+    private func fetchTopRecord()
+    {
+        guard let theAppDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        do
+        {
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
+            request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            request.fetchLimit = 1
+            if let objects = try theAppDelegate.persistentContainer.viewContext.fetch(request) as? [NSManagedObject], let first = objects.first, let data = first.value(forKey: "data") as? Data, let json = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String: String]
+            {
+                self.data = json.keys.sorted()
+                self.value = json
+                self.tableView.reloadData()
+                print("load \(objects.count) records")
+            }else
+            {
+                print("not found")
+            }
+        }catch let error
+        {
+            print(error)
         }
     }
 }
