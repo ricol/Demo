@@ -12,11 +12,11 @@ import Alamofire
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var barItemRun: UIBarButtonItem!
     
     let ID = "TableViewCell_ID"
     var data = [String]()
     var value = [String: String]()
+    let indicator = UIActivityIndicatorView(style: .medium)
     
     // MARK: - View Life Cycle
     
@@ -24,13 +24,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool)
-    {
-        super.viewWillAppear(animated)
         
-        callAPI()
+        //schedule a timer to call api every 5 seconds
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+            self.callAPI()
+        }
+        
+        //add the indicator as left barButtonItem
+        let barBtn = UIBarButtonItem(customView: indicator)
+        self.navigationItem.leftBarButtonItem = barBtn
+        
+        self.tableView.tableFooterView = UIView() //trick to blank screen in table view
     }
     
     // MARK: - UITableViewDataSource
@@ -49,23 +53,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return data.count
     }
     
-    // MARK: - IBAction Methods
-    
-    @IBAction func barItemRunOnTapped(_ sender: Any)
-    {
-        callAPI()
-    }
-    
     // MARK: - Private Methods
     
     private func callAPI()
     {
+        indicator.startAnimating()
         AF.request("https://api.github.com").responseJSON { (res) in
             if let json = res.value as? [String: String]
             {
                 self.data = json.keys.sorted()
                 self.value = json
                 self.tableView.reloadData()
+                self.indicator.stopAnimating()
             }
         }
     }

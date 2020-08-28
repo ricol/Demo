@@ -60,11 +60,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Main" id="9hO-sR-D8d">
-                        <barButtonItem key="leftBarButtonItem" title="Run" id="JFb-hg-wA8">
-                            <connections>
-                                <action selector="barItemRunOnTapped:" destination="BYZ-38-t0r" id="sba-D5-vUy"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="History" id="A3d-Oy-zFI">
                             <connections>
                                 <segue destination="8sW-nw-6EM" kind="show" id="Qb0-7u-QpE"/>
@@ -72,7 +67,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="barItemRun" destination="JFb-hg-wA8" id="DdG-fD-fzt"/>
                         <outlet property="tableView" destination="mNy-gV-vOX" id="5g6-h4-G0K"/>
                     </connections>
                 </viewController>
