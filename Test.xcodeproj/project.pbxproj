@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,13 +11,14 @@
 		97892AB12AF6E87FD04B8544 /* Pods_TestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77FAF86B716A09B5D1C55817 /* Pods_TestTests.framework */; };
 		EDF5D26324F93F0D003C3C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF5D26224F93F0D003C3C5D /* AppDelegate.swift */; };
 		EDF5D26524F93F0E003C3C5D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF5D26424F93F0E003C3C5D /* SceneDelegate.swift */; };
-		EDF5D26724F93F0E003C3C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF5D26624F93F0E003C3C5D /* ViewController.swift */; };
+		EDF5D26724F93F0E003C3C5D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF5D26624F93F0E003C3C5D /* MainViewController.swift */; };
 		EDF5D26A24F93F0E003C3C5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDF5D26824F93F0E003C3C5D /* Main.storyboard */; };
 		EDF5D26D24F93F0E003C3C5D /* Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDF5D26B24F93F0E003C3C5D /* Test.xcdatamodeld */; };
 		EDF5D26F24F93F0E003C3C5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDF5D26E24F93F0E003C3C5D /* Assets.xcassets */; };
 		EDF5D27224F93F0E003C3C5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDF5D27024F93F0E003C3C5D /* LaunchScreen.storyboard */; };
 		EDF5D27D24F93F0E003C3C5D /* TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF5D27C24F93F0E003C3C5D /* TestTests.swift */; };
 		EDF5D28824F93F0E003C3C5D /* TestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF5D28724F93F0E003C3C5D /* TestUITests.swift */; };
+		EDF5D29624F94121003C3C5D /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF5D29524F94121003C3C5D /* HistoryViewController.swift */; };
 		F60679B63CED3089E19E285C /* Pods_Test_TestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3944C8824F7C475CED62E546 /* Pods_Test_TestUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +52,7 @@
 		EDF5D25F24F93F0D003C3C5D /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDF5D26224F93F0D003C3C5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDF5D26424F93F0E003C3C5D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EDF5D26624F93F0E003C3C5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EDF5D26624F93F0E003C3C5D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EDF5D26924F93F0E003C3C5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EDF5D26C24F93F0E003C3C5D /* Test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Test.xcdatamodel; sourceTree = "<group>"; };
 		EDF5D26E24F93F0E003C3C5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 		EDF5D28324F93F0E003C3C5D /* TestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDF5D28724F93F0E003C3C5D /* TestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUITests.swift; sourceTree = "<group>"; };
 		EDF5D28924F93F0E003C3C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDF5D29524F94121003C3C5D /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +105,6 @@
 				944578B8237F760F79BA5DA2 /* Pods-TestTests.debug.xcconfig */,
 				57FFDF707C4D5C9E3AA5EDFE /* Pods-TestTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -144,7 +145,8 @@
 			children = (
 				EDF5D26224F93F0D003C3C5D /* AppDelegate.swift */,
 				EDF5D26424F93F0E003C3C5D /* SceneDelegate.swift */,
-				EDF5D26624F93F0E003C3C5D /* ViewController.swift */,
+				EDF5D26624F93F0E003C3C5D /* MainViewController.swift */,
+				EDF5D29524F94121003C3C5D /* HistoryViewController.swift */,
 				EDF5D26824F93F0E003C3C5D /* Main.storyboard */,
 				EDF5D26E24F93F0E003C3C5D /* Assets.xcassets */,
 				EDF5D27024F93F0E003C3C5D /* LaunchScreen.storyboard */,
@@ -411,9 +413,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDF5D26724F93F0E003C3C5D /* ViewController.swift in Sources */,
+				EDF5D26724F93F0E003C3C5D /* MainViewController.swift in Sources */,
 				EDF5D26D24F93F0E003C3C5D /* Test.xcdatamodeld in Sources */,
 				EDF5D26324F93F0D003C3C5D /* AppDelegate.swift in Sources */,
+				EDF5D29624F94121003C3C5D /* HistoryViewController.swift in Sources */,
 				EDF5D26524F93F0E003C3C5D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

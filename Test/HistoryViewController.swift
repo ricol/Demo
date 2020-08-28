@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HistoryViewController.swift
 //  Test
 //
 //  Created by Ricol Wang on 28/8/20.
@@ -8,11 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController
+class HistoryViewController: UIViewController
 {
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
+
 }
