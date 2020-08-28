@@ -77,18 +77,56 @@
         <!--History-->
         <scene sceneID="iyg-wg-XVq">
             <objects>
-                <viewController id="8sW-nw-6EM" sceneMemberID="viewController">
+                <viewController id="8sW-nw-6EM" customClass="HistoryViewController" customModule="Test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cQo-2L-P7T">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rx9-28-xyI">
+                                <rect key="frame" x="20" y="88" width="374" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryTableViewCell_ID" textLabel="aT8-tQ-MRk" style="IBUITableViewCellStyleDefault" id="1Rm-r3-JNz">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Rm-r3-JNz" id="XFi-nj-DLX">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aT8-tQ-MRk">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8sW-nw-6EM" id="RyD-ZA-HOO"/>
+                                    <outlet property="delegate" destination="8sW-nw-6EM" id="F0E-dZ-A7w"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ECX-oE-jPZ" firstAttribute="trailing" secondItem="rx9-28-xyI" secondAttribute="trailing" constant="20" id="QLp-Uu-f8g"/>
+                            <constraint firstItem="rx9-28-xyI" firstAttribute="bottom" secondItem="ECX-oE-jPZ" secondAttribute="bottom" id="bLC-BT-OR0"/>
+                            <constraint firstItem="rx9-28-xyI" firstAttribute="top" secondItem="ECX-oE-jPZ" secondAttribute="top" id="kG3-wH-w6R"/>
+                            <constraint firstItem="rx9-28-xyI" firstAttribute="leading" secondItem="ECX-oE-jPZ" secondAttribute="leading" constant="20" id="rFT-JO-kIy"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ECX-oE-jPZ"/>
                     </view>
                     <navigationItem key="navigationItem" title="History" id="cjY-xl-ndI"/>
+                    <connections>
+                        <outlet property="tableView" destination="rx9-28-xyI" id="XHH-U6-Xbz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C2m-Hf-wJV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1907" y="137"/>
+            <point key="canvasLocation" x="1905.7971014492755" y="136.60714285714286"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1Tz-gU-YaJ">
