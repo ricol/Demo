@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
@@ -63,6 +64,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             {
                 self.data = json.keys.sorted()
                 self.value = json
+                //save to coredata
+                if let theAppDelete = UIApplication.shared.delegate as? AppDelegate
+                {
+                    let managedContext = theAppDelete.persistentContainer.viewContext
+                    let record = NSEntityDescription.entity(forEntityName: "record", in: managedContext)
+                    record?.setValue(res, forKey: "data")
+                    record?.setValue(Date(), forKey: "timestamp")
+                    do
+                    {
+                        try managedContext.save()
+                        print("data saved.")
+                    }catch let error
+                    {
+                        print("error: \(error)")
+                    }
+                }
                 self.tableView.reloadData()
                 self.indicator.stopAnimating()
             }
