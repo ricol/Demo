@@ -1,16 +1,20 @@
 PODS:
   - Alamofire (5.2.2)
+  - MarqueeLabel (4.0.2)
 
 DEPENDENCIES:
   - Alamofire
+  - MarqueeLabel
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - MarqueeLabel
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
 
-PODFILE CHECKSUM: 92dff6beccb416c981580dcbad3c2de04267d859
+PODFILE CHECKSUM: 5a6185574a787dcadd3c1063eaa460e73d5364e4
 
 COCOAPODS: 1.8.4
