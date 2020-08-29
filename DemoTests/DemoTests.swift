@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Demo
 
 class DemoTests: XCTestCase
 {
@@ -24,5 +25,9 @@ class DemoTests: XCTestCase
     {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        APIService.github { (json) in
+            XCTAssertTrue(json.count > 0)
+        }
     }
 }
