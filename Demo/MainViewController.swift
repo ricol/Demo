@@ -6,7 +6,6 @@
 //  Copyright © 2020 DeepSpace. All rights reserved.
 //
 
-import Alamofire
 import CoreData
 import UIKit
 
@@ -67,33 +66,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         print("\(Date()) calling...")
         indicator.startAnimating()
-        AF.request("https://api.github.com").responseJSON { res in
-            if let json = res.value as? [String: String]
+        APIService.github { (json) in
+            self.data = json.keys.sorted()
+            self.value = json
+            // save to coredata
+            if let theAppDelete = UIApplication.shared.delegate as? AppDelegate
             {
-                self.data = json.keys.sorted()
-                self.value = json
-                // save to coredata
-                if let theAppDelete = UIApplication.shared.delegate as? AppDelegate
+                let managedContext = theAppDelete.persistentContainer.viewContext
+                let record = Record(context: managedContext)
+                do
                 {
-                    let managedContext = theAppDelete.persistentContainer.viewContext
-                    let record = Record(context: managedContext)
-                    do
-                    {
-                        let data = try NSKeyedArchiver.archivedData(withRootObject: json, requiringSecureCoding: true)
-                        record.data = data
-                        record.timestamp = Date()
-                        try managedContext.save()
-                        NotificationCenter.default.post(name: Notification.Name(Notif.Local.kNotificationNewRecord), object: nil)
-                        print("data saved. \(Thread.isMainThread)")
-                    }
-                    catch
-                    {
-                        print("error: \(error)")
-                    }
+                    let data = try NSKeyedArchiver.archivedData(withRootObject: json, requiringSecureCoding: true)
+                    record.data = data
+                    record.timestamp = Date()
+                    try managedContext.save()
+                    NotificationCenter.default.post(name: Notification.Name(Notif.Local.kNotificationNewRecord), object: nil)
+                    print("data saved. \(Thread.isMainThread)")
                 }
-                self.tableView.reloadData()
-                self.indicator.stopAnimating()
+                catch
+                {
+                    print("error: \(error)")
+                }
             }
+            self.tableView.reloadData()
+            self.indicator.stopAnimating()
         }
     }
 

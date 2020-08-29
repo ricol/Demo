@@ -25,7 +25,7 @@ class DemoUITests: XCTestCase
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws
+    func testMainView() throws
     {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
@@ -33,16 +33,48 @@ class DemoUITests: XCTestCase
 
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        XCTAssertFalse(XCUIApplication().tableRows.firstMatch.exists)
     }
-
-    func testLaunchPerformance() throws
+    
+    func testHistoryShowNewRecordHint() throws
     {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-        {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launch()
+
+        // Use recording to get started writing UI tests.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        app.navigationBars["Main"].buttons["History"].tap()
+        
+        let btn = app.buttons["New record arrived. pull to refresh or tap here"]
+        let exists = NSPredicate(format: "exists == 1")
+        
+        wait(for: [expectation(for: exists,
+        evaluatedWith: btn, handler: nil)], timeout: 10)
+    }
+    
+    func testHistory() throws
+    {
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launch()
+
+        // Use recording to get started writing UI tests.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        app.navigationBars["Main"].buttons["History"].tap()
+        XCTAssertTrue(app.tables.cells.firstMatch.exists)
+    }
+    
+    func testDetailsView() throws
+    {
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launch()
+
+        // Use recording to get started writing UI tests.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        app.navigationBars["Main"].buttons["History"].tap()
+        app.tables.cells.firstMatch.tap()
+        XCTAssertTrue(app.tables.cells.firstMatch.exists)
     }
 }
