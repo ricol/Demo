@@ -1,15 +1,15 @@
 //
-//  TestTests.swift
-//  TestTests
+//  DemoTests.swift
+//  DemoTests
 //
-//  Created by Ricol Wang on 28/8/20.
+//  Created by Ricol Wang on 29/8/20.
 //  Copyright © 2020 DeepSpace. All rights reserved.
 //
 
-@testable import Test
 import XCTest
+@testable import Demo
 
-class TestTests: XCTestCase
+class DemoTests: XCTestCase
 {
     override func setUpWithError() throws
     {
@@ -21,17 +21,13 @@ class TestTests: XCTestCase
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws
+    func testAPICall() throws
     {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws
-    {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+        
+        APIService.github { (json) in
+            XCTAssertTrue(json.count > 0)
         }
     }
 }

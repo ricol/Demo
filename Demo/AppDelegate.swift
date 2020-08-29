@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Test
+// Demo
 //
 //  Created by Ricol Wang on 28/8/20.
 //  Copyright © 2020 DeepSpace. All rights reserved.
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
          */
-        let container = NSPersistentContainer(name: "Test")
+        let container = NSPersistentContainer(name: "Demo")
         container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError?
             {
