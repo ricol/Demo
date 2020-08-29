@@ -16,7 +16,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     let ID = "HistoryTableViewCell_ID"
     let df = DateFormatter()
     
-    var data = [NSManagedObject]()
+    var data = [Record]()
     
     // MARK: - View Life Cycle
     
@@ -42,7 +42,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     {
         let row = data[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: ID, for: indexPath)
-        if let date = row.value(forKey: "timestamp") as? Date
+        if let date = row.timestamp
         {
             cell.textLabel?.text = df.string(from: date)
         }
@@ -61,17 +61,12 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         guard let theAppDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         do
         {
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
+            let request: NSFetchRequest<Record> = Record.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-            if let objects = try theAppDelegate.persistentContainer.viewContext.fetch(request) as? [NSManagedObject]
-            {
-                self.data = objects
-                self.tableView.reloadData()
-                print("load \(objects.count) records")
-            }else
-            {
-                print("not found")
-            }
+            let objects = try theAppDelegate.persistentContainer.viewContext.fetch(request)
+            self.data = objects
+            self.tableView.reloadData()
+            print("load \(objects.count) records")
         }catch let error
         {
             print(error)
