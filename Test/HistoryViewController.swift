@@ -12,6 +12,7 @@ import SVPullToRefresh
 
 class HistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
+    @IBOutlet weak var lblHint: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     let ID = "HistoryTableViewCell_ID"
@@ -34,8 +35,12 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             self.loadData()
         }
         
+        self.lblHint.alpha = 0
+        
         observer = NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: Notif.Local.kNotificationNewRecord), object: nil, queue: nil) { (notif) in
-            self.loadData()
+            UIView.animate(withDuration: 0.3) {
+                self.lblHint.alpha = 1
+            }
         }
     }
     
@@ -108,6 +113,9 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             self.data = objects
             self.tableView.reloadData()
             self.tableView.pullToRefreshView.stopAnimating()
+            UIView.animate(withDuration: 0.3) {
+                self.lblHint.alpha = 0
+            }
         }catch let error
         {
             print(error)
