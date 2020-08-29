@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SVPullToRefresh
 
 class HistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
@@ -27,6 +28,9 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         
         self.tableView.tableFooterView = UIView() //trick to blank screen in table view
         df.dateFormat = "MM-dd-yyyy HH:mm:ss"
+        self.tableView.addPullToRefresh {
+            self.loadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -67,6 +71,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             self.data = objects
             self.tableView.reloadData()
             print("load \(objects.count) records")
+            self.tableView.pullToRefreshView.stopAnimating()
         }catch let error
         {
             print(error)
