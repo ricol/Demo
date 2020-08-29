@@ -1,46 +1,46 @@
 //
 //  HistoryViewController.swift
-//  Test
+// Demo
 //
 //  Created by Ricol Wang on 28/8/20.
 //  Copyright © 2020 DeepSpace. All rights reserved.
 //
 
-import UIKit
 import CoreData
 import SVPullToRefresh
+import UIKit
 
 class HistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-    @IBOutlet weak var btnHint: UIButton!
-    @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet var btnHint: UIButton!
+    @IBOutlet var tableView: UITableView!
+
     let ID = "HistoryTableViewCell_ID"
     let SEGUE_ID_SHOWDETAILS = "SegueID_ShowDetails"
     let df = DateFormatter()
     var observer: Any?
     var bShowNewRecord = false
-    
+
     var data = [Record]()
-    
+
     // MARK: - View Life Cycle
-    
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        self.tableView.tableFooterView = UIView() //trick to show blank screen in table view
+
+        tableView.tableFooterView = UIView() // trick to show blank screen in table view
         df.dateFormat = "MM-dd-yyyy HH:mm:ss"
-        self.tableView.addPullToRefresh {
+        tableView.addPullToRefresh {
             self.bShowNewRecord = true
             self.loadData()
         }
-        
-        self.btnHint.alpha = 0
-        self.btnHint.isHidden = true
-        
-        observer = NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: Notif.Local.kNotificationNewRecord), object: nil, queue: nil, using: { (notif) in
+
+        btnHint.alpha = 0
+        btnHint.isHidden = true
+
+        observer = NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: Notif.Local.kNotificationNewRecord), object: nil, queue: nil, using: { _ in
             self.btnHint.isHidden = false
             self.btnHint.alpha = 0
             UIView.animate(withDuration: 0.3) {
@@ -48,14 +48,14 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         })
     }
-    
+
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        
+
         loadData()
     }
-    
+
     deinit
     {
         if let observer = self.observer
@@ -63,9 +63,9 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             NotificationCenter.default.removeObserver(observer)
         }
     }
-    
+
     // MARK: - UITableViewDataSource
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let row = data[indexPath.row]
@@ -74,22 +74,22 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         if let date = row.timestamp
         {
             cell.textLabel?.text = df.string(from: date)
-            if bShowNewRecord && indexPath.row == 0
+            if bShowNewRecord, indexPath.row == 0
             {
                 cell.backgroundColor = UIColor.systemGreen
             }
         }
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int
     {
         return data.count
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?)
     {
-        if let indexpath = self.tableView.indexPathForSelectedRow, let id = segue.identifier, id == SEGUE_ID_SHOWDETAILS, let detailsVC = segue.destination as? DetailsViewController
+        if let indexpath = tableView.indexPathForSelectedRow, let id = segue.identifier, id == SEGUE_ID_SHOWDETAILS, let detailsVC = segue.destination as? DetailsViewController
         {
             let row = data[indexpath.row]
             if let data = row.data, let timestamp = row.timestamp
@@ -102,16 +102,17 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
                         detailsVC.data = dict.keys.sorted()
                         detailsVC.value = dict
                     }
-                }catch let error
+                }
+                catch
                 {
                     print(error)
                 }
             }
         }
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func loadData()
     {
         guard let theAppDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -120,32 +121,33 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             let request: NSFetchRequest<Record> = Record.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
             let objects = try theAppDelegate.persistentContainer.viewContext.fetch(request)
-            self.data = objects
-            self.tableView.reloadData()
-            self.tableView.pullToRefreshView.stopAnimating()
+            data = objects
+            tableView.reloadData()
+            tableView.pullToRefreshView.stopAnimating()
             UIView.animate(withDuration: 0.3, animations: {
                 self.btnHint.alpha = 0
-            }) { (complete) in
+            }) { _ in
                 self.btnHint.isHidden = true
             }
-        }catch let error
+        }
+        catch
         {
             print(error)
         }
     }
-    
+
     // MARK: - IBAction Methods
-    
-    @IBAction func btnHintOnTapped(_ sender: Any)
+
+    @IBAction func btnHintOnTapped(_: Any)
     {
-        self.bShowNewRecord = true
+        bShowNewRecord = true
         loadData()
     }
-    
-    @IBAction func btnClearOnTapped(_ sender: Any)
+
+    @IBAction func btnClearOnTapped(_: Any)
     {
         let alert = UIAlertController(title: "Confirm", message: "Clear all history records?", preferredStyle: .alert)
-        let yes = UIAlertAction(title: "Yes", style: .destructive) { (action) in
+        let yes = UIAlertAction(title: "Yes", style: .destructive) { _ in
             guard let theAppDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             do
             {
@@ -157,10 +159,11 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.tableView.pullToRefreshView.stopAnimating()
                 UIView.animate(withDuration: 0.3, animations: {
                     self.btnHint.alpha = 0
-                }) { (complete) in
+                }) { _ in
                     self.btnHint.isHidden = true
                 }
-            }catch let error
+            }
+            catch
             {
                 print(error)
             }
@@ -168,6 +171,6 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancel)
         alert.addAction(yes)
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

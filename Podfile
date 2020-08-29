@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'Test' do
+target 'Demo' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   
@@ -9,14 +9,12 @@ target 'Test' do
   pod 'MarqueeLabel'
   pod 'SVPullToRefresh'
   pod 'UIScrollView-InfiniteScroll'
-  # Pods for Test
-  target 'TestTests' do
+  
+  target 'DemoTests' do
     inherit! :search_paths
-    # Pods for testing
   end
 
-  target 'TestUITests' do
-    # Pods for testing
+  target 'DemoUITests' do
   end
 
 end
