@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let barBtn = UIBarButtonItem(customView: indicator)
         self.navigationItem.leftBarButtonItem = barBtn
         
-        self.tableView.tableFooterView = UIView() //trick to blank screen in table view
+        self.tableView.tableFooterView = UIView() //trick to show blank screen in table view
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -83,7 +83,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         record.data = data
                         record.timestamp = Date()
                         try managedContext.save()
-                        print("data saved.")
+                        NotificationCenter.default.post(name: Notification.Name(Notif.Local.kNotificationNewRecord), object: nil)
+                        print("data saved. \(Thread.isMainThread)")
                     }catch let error
                     {
                         print("error: \(error)")

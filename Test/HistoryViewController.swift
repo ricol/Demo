@@ -17,6 +17,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     let ID = "HistoryTableViewCell_ID"
     let SEGUE_ID_SHOWDETAILS = "SegueID_ShowDetails"
     let df = DateFormatter()
+    var observer: Any?
     
     var data = [Record]()
     
@@ -27,9 +28,13 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.tableView.tableFooterView = UIView() //trick to blank screen in table view
+        self.tableView.tableFooterView = UIView() //trick to show blank screen in table view
         df.dateFormat = "MM-dd-yyyy HH:mm:ss"
         self.tableView.addPullToRefresh {
+            self.loadData()
+        }
+        
+        observer = NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: Notif.Local.kNotificationNewRecord), object: nil, queue: nil) { (notif) in
             self.loadData()
         }
     }
@@ -39,6 +44,14 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewWillAppear(animated)
         
         loadData()
+    }
+    
+    deinit
+    {
+        if let observer = self.observer
+        {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     // MARK: - UITableViewDataSource
@@ -94,7 +107,6 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             let objects = try theAppDelegate.persistentContainer.viewContext.fetch(request)
             self.data = objects
             self.tableView.reloadData()
-            print("load \(objects.count) records")
             self.tableView.pullToRefreshView.stopAnimating()
         }catch let error
         {
