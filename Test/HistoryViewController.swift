@@ -141,4 +141,33 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         self.bShowNewRecord = true
         loadData()
     }
+    
+    @IBAction func btnClearOnTapped(_ sender: Any)
+    {
+        let alert = UIAlertController(title: "Confirm", message: "Clear all history records?", preferredStyle: .alert)
+        let yes = UIAlertAction(title: "Yes", style: .destructive) { (action) in
+            guard let theAppDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            do
+            {
+                let request: NSFetchRequest<NSFetchRequestResult> = Record.fetchRequest()
+                let delete = NSBatchDeleteRequest(fetchRequest: request)
+                try theAppDelegate.persistentContainer.viewContext.execute(delete)
+                self.data = []
+                self.tableView.reloadData()
+                self.tableView.pullToRefreshView.stopAnimating()
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.btnHint.alpha = 0
+                }) { (complete) in
+                    self.btnHint.isHidden = true
+                }
+            }catch let error
+            {
+                print(error)
+            }
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        alert.addAction(yes)
+        self.present(alert, animated: true, completion: nil)
+    }
 }

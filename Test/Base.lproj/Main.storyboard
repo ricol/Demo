@@ -139,7 +139,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ECX-oE-jPZ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="History" id="cjY-xl-ndI"/>
+                    <navigationItem key="navigationItem" title="History" id="cjY-xl-ndI">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="yJa-US-kYJ">
+                            <connections>
+                                <action selector="btnClearOnTapped:" destination="8sW-nw-6EM" id="ago-BP-B5w"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="btnHint" destination="nfg-G6-7gU" id="1Pc-b7-dc1"/>
                         <outlet property="tableView" destination="rx9-28-xyI" id="XHH-U6-Xbz"/>
