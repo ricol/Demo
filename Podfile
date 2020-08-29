@@ -7,7 +7,8 @@ target 'Test' do
   
   pod 'Alamofire'
   pod 'MarqueeLabel'
-
+  pod 'SVPullToRefresh'
+  pod 'UIScrollView-InfiniteScroll'
   # Pods for Test
   target 'TestTests' do
     inherit! :search_paths

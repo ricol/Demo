@@ -1,20 +1,28 @@
 PODS:
   - Alamofire (5.2.2)
   - MarqueeLabel (4.0.2)
+  - SVPullToRefresh (0.4.1)
+  - UIScrollView-InfiniteScroll (1.1.0)
 
 DEPENDENCIES:
   - Alamofire
   - MarqueeLabel
+  - SVPullToRefresh
+  - UIScrollView-InfiniteScroll
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - MarqueeLabel
+    - SVPullToRefresh
+    - UIScrollView-InfiniteScroll
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
 
-PODFILE CHECKSUM: 5a6185574a787dcadd3c1063eaa460e73d5364e4
+PODFILE CHECKSUM: 93b26e79c0fae1fdaabe8475ac461089f126a882
 
 COCOAPODS: 1.8.4
