@@ -15,6 +15,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var tableView: UITableView!
     
     let ID = "HistoryTableViewCell_ID"
+    let SEGUE_ID_SHOWDETAILS = "SegueID_ShowDetails"
     let df = DateFormatter()
     
     var data = [Record]()
@@ -56,6 +57,29 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return data.count
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let indexpath = self.tableView.indexPathForSelectedRow, let id = segue.identifier, id == SEGUE_ID_SHOWDETAILS, let detailsVC = segue.destination as? DetailsViewController
+        {
+            let row = data[indexpath.row]
+            if let data = row.data, let timestamp = row.timestamp
+            {
+                do
+                {
+                    if let dict = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String: String]
+                    {
+                        detailsVC.title = df.string(from: timestamp)
+                        detailsVC.data = dict.keys.sorted()
+                        detailsVC.value = dict
+                    }
+                }catch let error
+                {
+                    print(error)
+                }
+            }
+        }
     }
     
     // MARK: - Private Methods
