@@ -12,13 +12,14 @@ import SVPullToRefresh
 
 class HistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-    @IBOutlet weak var lblHint: UILabel!
+    @IBOutlet weak var btnHint: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     let ID = "HistoryTableViewCell_ID"
     let SEGUE_ID_SHOWDETAILS = "SegueID_ShowDetails"
     let df = DateFormatter()
     var observer: Any?
+    var bShowNewRecord = false
     
     var data = [Record]()
     
@@ -32,16 +33,20 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.tableFooterView = UIView() //trick to show blank screen in table view
         df.dateFormat = "MM-dd-yyyy HH:mm:ss"
         self.tableView.addPullToRefresh {
+            self.bShowNewRecord = true
             self.loadData()
         }
         
-        self.lblHint.alpha = 0
+        self.btnHint.alpha = 0
+        self.btnHint.isHidden = true
         
-        observer = NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: Notif.Local.kNotificationNewRecord), object: nil, queue: nil) { (notif) in
+        observer = NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: Notif.Local.kNotificationNewRecord), object: nil, queue: nil, using: { (notif) in
+            self.btnHint.isHidden = false
+            self.btnHint.alpha = 0
             UIView.animate(withDuration: 0.3) {
-                self.lblHint.alpha = 1
+                self.btnHint.alpha = 1
             }
-        }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -65,9 +70,14 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     {
         let row = data[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: ID, for: indexPath)
+        cell.backgroundColor = UIColor.clear
         if let date = row.timestamp
         {
             cell.textLabel?.text = df.string(from: date)
+            if bShowNewRecord && indexPath.row == 0
+            {
+                cell.backgroundColor = UIColor.systemGreen
+            }
         }
         return cell
     }
@@ -113,13 +123,22 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             self.data = objects
             self.tableView.reloadData()
             self.tableView.pullToRefreshView.stopAnimating()
-            UIView.animate(withDuration: 0.3) {
-                self.lblHint.alpha = 0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.btnHint.alpha = 0
+            }) { (complete) in
+                self.btnHint.isHidden = true
             }
         }catch let error
         {
             print(error)
         }
     }
-
+    
+    // MARK: - IBAction Methods
+    
+    @IBAction func btnHintOnTapped(_ sender: Any)
+    {
+        self.bShowNewRecord = true
+        loadData()
+    }
 }

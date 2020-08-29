@@ -112,23 +112,27 @@
                                     <outlet property="delegate" destination="8sW-nw-6EM" id="F0E-dZ-A7w"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new record detected, pull to refresh" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yw-yJ-cRZ">
-                                <rect key="frame" x="20" y="88" width="374" height="35"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nfg-G6-7gU">
+                                <rect key="frame" x="20" y="88" width="374" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="ufp-Tm-rgj"/>
+                                    <constraint firstAttribute="height" constant="30" id="gb0-hb-i44"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <state key="normal" title="New record arrived. pull to refresh or tap here">
+                                    <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnHintOnTapped:" destination="8sW-nw-6EM" eventType="touchUpInside" id="bHw-lq-f83"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="5Yw-yJ-cRZ" firstAttribute="leading" secondItem="rx9-28-xyI" secondAttribute="leading" id="0q0-Mz-o4Q"/>
-                            <constraint firstItem="5Yw-yJ-cRZ" firstAttribute="top" secondItem="rx9-28-xyI" secondAttribute="top" id="NMZ-2T-Jb4"/>
+                            <constraint firstItem="nfg-G6-7gU" firstAttribute="leading" secondItem="rx9-28-xyI" secondAttribute="leading" id="Bow-mw-zxb"/>
                             <constraint firstItem="ECX-oE-jPZ" firstAttribute="trailing" secondItem="rx9-28-xyI" secondAttribute="trailing" constant="20" id="QLp-Uu-f8g"/>
-                            <constraint firstItem="5Yw-yJ-cRZ" firstAttribute="trailing" secondItem="rx9-28-xyI" secondAttribute="trailing" id="UGW-us-WSi"/>
+                            <constraint firstItem="nfg-G6-7gU" firstAttribute="trailing" secondItem="rx9-28-xyI" secondAttribute="trailing" id="Rz6-WV-EEZ"/>
+                            <constraint firstItem="nfg-G6-7gU" firstAttribute="top" secondItem="rx9-28-xyI" secondAttribute="top" id="Z7f-uS-yY2"/>
                             <constraint firstItem="rx9-28-xyI" firstAttribute="bottom" secondItem="ECX-oE-jPZ" secondAttribute="bottom" id="bLC-BT-OR0"/>
                             <constraint firstItem="rx9-28-xyI" firstAttribute="top" secondItem="ECX-oE-jPZ" secondAttribute="top" id="kG3-wH-w6R"/>
                             <constraint firstItem="rx9-28-xyI" firstAttribute="leading" secondItem="ECX-oE-jPZ" secondAttribute="leading" constant="20" id="rFT-JO-kIy"/>
@@ -137,7 +141,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="History" id="cjY-xl-ndI"/>
                     <connections>
-                        <outlet property="lblHint" destination="5Yw-yJ-cRZ" id="acW-Te-GhL"/>
+                        <outlet property="btnHint" destination="nfg-G6-7gU" id="1Pc-b7-dc1"/>
                         <outlet property="tableView" destination="rx9-28-xyI" id="XHH-U6-Xbz"/>
                     </connections>
                 </viewController>
